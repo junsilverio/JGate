@@ -7,4 +7,20 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.3.0" />
+    <PackageReference Include="Aspire.Hosting.RabbitMQ" Version="9.3.0" />
+    <PackageReference Include="Aspire.Hosting.Redis" Version="9.3.0" />
+    <PackageReference Include="Aspire.Hosting.SqlServer" Version="9.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\Services\JGate.Identity.API\JGate.Identity.API.csproj" IsAspireProjectResource="true" />
+    <ProjectReference Include="..\src\Services\JGate.Inventory.API\JGate.Inventory.API.csproj" IsAspireProjectResource="true" />
+    <ProjectReference Include="..\src\Services\JGate.Orders.API\JGate.Orders.API.csproj" IsAspireProjectResource="true" />
+    <ProjectReference Include="..\src\Services\JGate.Delivery.API\JGate.Delivery.API.csproj" IsAspireProjectResource="true" />
+    <ProjectReference Include="..\src\Services\JGate.Tasks.API\JGate.Tasks.API.csproj" IsAspireProjectResource="true" />
+    <ProjectReference Include="..\src\Gateway\JGate.ApiGateway\JGate.ApiGateway.csproj" IsAspireProjectResource="true" />
+  </ItemGroup>
+
 </Project>
