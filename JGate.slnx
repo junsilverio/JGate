@@ -1,0 +1,19 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Gateway/">
+    <Project Path="src/Gateway/JGate.ApiGateway/JGate.ApiGateway.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/">
+    <Project Path="src/Services/JGate.Delivery.API/JGate.Delivery.API.csproj" />
+    <Project Path="src/Services/JGate.Identity.API/JGate.Identity.API.csproj" />
+    <Project Path="src/Services/JGate.Inventory.API/JGate.Inventory.API.csproj" />
+    <Project Path="src/Services/JGate.Orders.API/JGate.Orders.API.csproj" />
+    <Project Path="src/Services/JGate.Tasks.API/JGate.Tasks.API.csproj" />
+  </Folder>
+  <Folder Name="/src/Shared/">
+    <Project Path="src/Shared/JGate.Domain/JGate.Domain.csproj" />
+    <Project Path="src/Shared/JGate.Infrastructure/JGate.Infrastructure.csproj" />
+  </Folder>
+  <Project Path="JGate.AppHost/JGate.AppHost.csproj" />
+  <Project Path="JGate.ServiceDefaults/JGate.ServiceDefaults.csproj" />
+</Solution>

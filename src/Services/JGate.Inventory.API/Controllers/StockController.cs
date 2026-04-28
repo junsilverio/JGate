@@ -56,6 +56,9 @@ public class StockController(InventoryDbContext db) : ControllerBase
         if (!Enum.TryParse<StockMovementType>(request.MovementType, out var movementType))
             return BadRequest(new { message = "Invalid movement type." });
 
+        if (request.WarehouseId == null)
+            return BadRequest(new { message = "WarehouseId is required for stock movements." });
+
         var movement = new StockMovement
         {
             ProductId = request.ProductId, WarehouseId = request.WarehouseId,
@@ -65,15 +68,17 @@ public class StockController(InventoryDbContext db) : ControllerBase
         };
         db.StockMovements.Add(movement);
 
-        // Update stock level
+        // Receipt and Return increase stock; all other types decrease it
+        bool isIncrease = movementType is StockMovementType.Receipt or StockMovementType.Return;
+
         var stockLevel = await db.StockLevels.FirstOrDefaultAsync(s =>
             s.ProductId == request.ProductId && s.WarehouseId == request.WarehouseId);
         if (stockLevel == null)
         {
-            stockLevel = new StockLevel { ProductId = request.ProductId, WarehouseId = request.WarehouseId ?? Guid.Empty };
+            stockLevel = new StockLevel { ProductId = request.ProductId, WarehouseId = request.WarehouseId.Value };
             db.StockLevels.Add(stockLevel);
         }
-        stockLevel.QuantityOnHand += movementType == StockMovementType.Receipt ? request.Quantity : -request.Quantity;
+        stockLevel.QuantityOnHand += isIncrease ? request.Quantity : -request.Quantity;
         stockLevel.UpdatedAt = DateTime.UtcNow;
 
         await db.SaveChangesAsync();
@@ -118,9 +123,9 @@ public class StockController(InventoryDbContext db) : ControllerBase
     [HttpPost("warehouses")]
     public async Task<IActionResult> CreateWarehouse([FromBody] CreateWarehouseRequest request)
     {
-        var wh = new Warehouse { Name = request.Name, Location = request.Location, Zone = request.Zone, MinTemperature = request.MinTemperature, MaxTemperature = request.MaxTemperature };
-        db.Warehouses.Add(wh);
+        var warehouse = new Warehouse { Name = request.Name, Location = request.Location, Zone = request.Zone, MinTemperature = request.MinTemperature, MaxTemperature = request.MaxTemperature };
+        db.Warehouses.Add(warehouse);
         await db.SaveChangesAsync();
-        return Ok(new { id = wh.Id });
+        return Ok(new { id = warehouse.Id });
     }
 }

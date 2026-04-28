@@ -1,0 +1,6 @@
+@JGate.Delivery.API_HostAddress = http://localhost:5143
+
+GET {{JGate.Delivery.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
