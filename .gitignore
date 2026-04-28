@@ -44,6 +44,11 @@ ScaffoldingReadMe.txt
 *~
 CodeCoverage/
 
+# Node / Angular
+node_modules/
+frontend/jgate-app/dist/
+frontend/jgate-app/.angular/
+
 # MSBuild Binary and Structured Log
 *.binlog
 
